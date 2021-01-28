@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, ImageBackground, StyleSheet } from 'react-native'
 
 import todayImage from '../../assets/imgs/today.jpg'
+import commonStyles from '../commonStyles'
 
 import moment from 'moment'
 import 'moment/locale/pt-br'
@@ -18,8 +19,8 @@ export default class TaskList extends Component {
                     style = {styles.background}
                 >
                     <View style = {styles.titleBar}>
-                        <Text> Hoje </Text>
-                        <Text> {today} </Text>
+                        <Text style = {styles.title}> Hoje </Text>
+                        <Text style = {styles.subtitle}> {today} </Text>
                     </View>
                 </ImageBackground>
 
@@ -49,5 +50,21 @@ const styles = StyleSheet.create({
     titleBar: {
         flex: 1,
         justifyContent: 'flex-end'
+    },
+
+    title: {
+        fontFamily: commonStyles.fontFamily,
+        fontSize: 50,
+        color: commonStyles.colors.secondary,
+        marginLeft: 10,
+        marginBottom: 20,
+    },
+    
+    subtitle: {
+        fontFamily: commonStyles.fontFamily,
+        fontSize: 20,
+        color: commonStyles.colors.secondary,
+        marginLeft: 20,
+        marginBottom: 20,
     }
 })
