@@ -6,7 +6,9 @@ import {
     StyleSheet, 
     FlatList ,
     TouchableOpacity,
-    Platform
+    Platform,
+    Alert,
+    TouchableOpacityBase,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
@@ -22,7 +24,7 @@ export default class TaskList extends Component {
 
     state = {
         showDoneTasks: true,
-        showAddTask: true,
+        showAddTask: false,
         visibleTasks: [],
         tasks: [{
             id: Math.random(),
@@ -69,6 +71,23 @@ export default class TaskList extends Component {
 
         this.setState({ tasks }, this.filterTasks)
     }
+
+    addTask = (newTask) => {
+        if(!newTask.desc || !newTask.desc.trim()) {
+            Alert.alert('Dados inválidos', 'Descrição não informada')
+            return
+        }
+
+        const tasks = [...this.state.tasks]
+        tasks.push({
+            id: Math.random(),
+            desc: newTask.desc,
+            estimateAt: newTask.date,
+            doneAt: null,
+        })
+
+        this.setState({ tasks, showAddTask: false }, this.filterTasks)
+    }
     
 
     render(){
@@ -80,6 +99,7 @@ export default class TaskList extends Component {
                 <AddTasks 
                     isVisible={this.state.showAddTask}
                     onCancel={() => {this.setState({showAddTask: false})}}
+                    onSave={this.addTask}
                 />
 
                 <ImageBackground 
@@ -108,6 +128,18 @@ export default class TaskList extends Component {
                         keyExtractor={item => `${item.id}`} 
                         renderItem={({item}) =><Task {...item} toggleTask={this.toggleTask}/> }/>
                 </View>
+                <TouchableOpacity  
+                    style={styles.addButton}
+                    onPress={() => {this.setState({showAddTask: true})}}
+                    activeOpacity={0.8}
+                >
+                    <Icon 
+                        name="plus"
+                        color={commonStyles.colors.secondary}
+                        size={20}
+                        
+                    />
+                </TouchableOpacity>
             </View>
         )
     }
@@ -152,5 +184,17 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         justifyContent: 'flex-end',
         marginTop: Platform.OS === 'ios' ? 30 : 15
+    },
+
+    addButton: {
+        position: 'absolute',
+        right: 30,
+        bottom: 30,
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        backgroundColor: commonStyles.colors.today,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 })
