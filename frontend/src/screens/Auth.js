@@ -4,14 +4,13 @@ import {
     Text,
     ImageBackground,
     StyleSheet,
-    TextInput,
     TouchableOpacity,
-    Platform,
     Alert,
 } from 'react-native';
 
 import backgroundImage from '../../assets/imgs/login.jpg';
 import commonStyles from '../commonStyles';
+import AuthInput from '../components/AuthInput';
 
 export default class Auth extends Component {
     state = {
@@ -26,7 +25,7 @@ export default class Auth extends Component {
         if (this.state.stageNew) {
             Alert.alert('Sucesso!', 'Criar conta');
         } else {
-            Aler.alert('Sucesso!', 'Logar');
+            Alert.alert('Sucesso!', 'Logar');
         }
     };
 
@@ -40,20 +39,23 @@ export default class Auth extends Component {
                     </Text>
 
                     {this.state.stageNew && (
-                        <TextInput
+                        <AuthInput
+                            icon="user"
                             placeholder="Nome"
                             value={this.state.name}
                             onChangeText={(name) => this.setState({ name })}
                             style={styles.input}
                         />
                     )}
-                    <TextInput
+                    <AuthInput
+                        icon="at"
                         placeholder="E-mail"
                         value={this.state.email}
                         onChangeText={(email) => this.setState({ email })}
                         style={styles.input}
                     />
-                    <TextInput
+                    <AuthInput
+                        icon="lock"
                         placeholder="Senha"
                         secureTextEntry={true}
                         value={this.state.password}
@@ -62,7 +64,8 @@ export default class Auth extends Component {
                     />
 
                     {this.state.stageNew && (
-                        <TextInput
+                        <AuthInput
+                            icon="lock"
                             placeholder="Confirmação de senha"
                             secureTextEntry={true}
                             value={this.state.confirmPassword}
@@ -126,9 +129,7 @@ const styles = StyleSheet.create({
 
     input: {
         marginTop: 10,
-        backgroundColor: '#FFF',
-        borderRadius: 10,
-        padding: Platform.OS == 'ios' ? 15 : 10,
+        backgroundColor: '#FFF',    
     },
 
     button: {
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
         padding: 10,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 40,
+        borderRadius: 30,
     },
 
     buttonText: {
