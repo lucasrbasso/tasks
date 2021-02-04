@@ -8,7 +8,6 @@ import {
     TouchableOpacity,
     Platform,
     Alert,
-    TouchableOpacityBase,
 } from 'react-native'
 
 import AsyncStorage from '@react-native-community/async-storage'
@@ -18,6 +17,10 @@ import 'moment/locale/pt-br'
 import axios from 'axios'
 
 import todayImage from '../../assets/imgs/today.jpg'
+import tomorrowImage from '../../assets/imgs/tomorrow.jpg'
+import weekImage from '../../assets/imgs/week.jpg'
+import monthImage from '../../assets/imgs/month.jpg'
+
 import commonStyles from '../commonStyles'
 import Task from '../components/Task'
 import AddTasks from './AddTasks'
@@ -46,7 +49,7 @@ export default class TaskList extends Component {
 
     loadTasks = async () => {
         try {
-            const maxDate = moment().format('YYYY-MM-DD 23:59:59')
+            const maxDate = moment().add({ days: this.props.daysAhead}).format('YYYY-MM-DD 23:59:59')
             const res = await axios.get(`${server}/tasks?date=${maxDate}`)
             this.setState({ tasks: res.data }, this.filterTasks)
 
@@ -112,6 +115,32 @@ export default class TaskList extends Component {
             showError(e)
         }
     }
+
+    getImage = () => {
+        switch(this.props.daysAhead){
+            case 0:
+                return todayImage
+            case 1:
+                return tomorrowImage
+            case 7:
+                return weekImage
+            default:
+                return monthImage
+        }
+    }
+
+    getColor = () => {
+        switch(this.props.daysAhead){
+            case 0:
+                return commonStyles.colors.today
+            case 1:
+                return commonStyles.colors.tomorrow
+            case 7:
+                return commonStyles.colors.week
+            default:
+                return commonStyles.colors.month
+        }
+    }
     
 
     render(){
@@ -127,10 +156,18 @@ export default class TaskList extends Component {
                 />
 
                 <ImageBackground 
-                    source={todayImage}
+                    source={this.getImage()}
                     style = {styles.background}
                 >
                     <View style={styles.iconBar}>
+                        <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
+                            <Icon 
+                                name='bars' 
+                                size={20}
+                                color={commonStyles.colors.secondary}/>
+                                
+                        </TouchableOpacity>
+
                         <TouchableOpacity onPress={this.toggleFilter}>
                             <Icon 
                                 name={this.state.showDoneTasks ? 'eye' : 'eye-slash'} 
@@ -141,8 +178,8 @@ export default class TaskList extends Component {
                     </View>
 
                     <View style = {styles.titleBar}>
-                        <Text style = {styles.title}> Hoje </Text>
-                        <Text style = {styles.subtitle}> {today} </Text>
+                        <Text style = {styles.title}>{this.props.title}</Text>
+                        <Text style = {styles.subtitle}>{today}</Text>
                     </View>
                 </ImageBackground>
 
@@ -159,7 +196,7 @@ export default class TaskList extends Component {
                     />
                 </View>
                 <TouchableOpacity  
-                    style={styles.addButton}
+                    style={[styles.addButton, {backgroundColor: this.getColor()}]}
                     onPress={() => {this.setState({showAddTask: true})}}
                     activeOpacity={0.8}
                 >
@@ -197,7 +234,7 @@ const styles = StyleSheet.create({
         fontFamily: commonStyles.fontFamily,
         fontSize: 50,
         color: commonStyles.colors.secondary,
-        marginLeft: 10,
+        marginLeft: 20,
         marginBottom: 20,
     },
     
@@ -212,7 +249,7 @@ const styles = StyleSheet.create({
     iconBar: {
         flexDirection: 'row',
         marginHorizontal: 20,
-        justifyContent: 'flex-end',
+        justifyContent: 'space-between',
         marginTop: Platform.OS === 'ios' ? 30 : 15
     },
 
@@ -223,7 +260,6 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         borderRadius: 25,
-        backgroundColor: commonStyles.colors.today,
         justifyContent: 'center',
         alignItems: 'center',
     },
