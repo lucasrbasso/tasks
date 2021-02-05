@@ -1,7 +1,7 @@
 ## Tasks App
 
 <p align="center">
-  <img alt="Tasks" src="/tasks.gif" width="30%">
+  <img alt="Tasks" src="/tasks.gif" width="20%">
 </p>
 
 Tasks é um projeto de estudos que funciona como uma aplicação de gestão de tarefas. 
@@ -18,4 +18,4 @@ console@bar:/GitHub/tasks/frontend:~$ npm react-native run-android
 console@bar:/GitHub/tasks/backend:~$ npm start
 ```
 
-Desenvolvido com ♥ por **Lucas Basso** durante o *Curso de React-Native** da **Cod3r.**
+Desenvolvido com ♥ por **Lucas Basso** durante o **Curso de React-Native** da **Cod3r.**
