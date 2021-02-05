@@ -10,6 +10,7 @@ import commonStyles from './commonStyles'
 import AuthOrApp from './screens/AuthOrApp'
 
 const menuConfig = {
+    unmountInactiveRoutes : true,
     initialRouteName: 'Today',
     contentComponent: Menu,
     contentOptions: {

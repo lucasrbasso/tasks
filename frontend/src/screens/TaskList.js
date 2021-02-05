@@ -99,7 +99,7 @@ export default class TaskList extends Component {
                 desc: newTask.desc,
                 estimateAt: newTask.date,
             })
-
+            
             this.setState({ showAddTask: false }, this.loadTasks)
 
         } catch (e) {
@@ -142,7 +142,6 @@ export default class TaskList extends Component {
         }
     }
     
-
     render(){
 
         const today = moment().locale('pt-br').format('ddd, D [de] MMMM')
@@ -153,7 +152,7 @@ export default class TaskList extends Component {
                     isVisible={this.state.showAddTask}
                     onCancel={() => {this.setState({showAddTask: false})}}
                     onSave={this.addTask}
-                />
+                />  
 
                 <ImageBackground 
                     source={this.getImage()}

@@ -5,7 +5,6 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   TouchableOpacity,
-  Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import commonStyles from '../commonStyles';
@@ -16,6 +15,7 @@ import 'moment/locale/pt-br';
 
 export default (props) => {
   const awaitTask = moment();
+
   const doneOrNot =
     props.doneAt != null ? {textDecorationLine: 'line-through'} : {};
 
@@ -53,7 +53,8 @@ export default (props) => {
           <Text
             style={[
               [
-                moment(new Date(awaitTask)).format("DD") > moment(new Date(props.estimateAt)).format("DD")
+                moment(new Date(awaitTask)).format('DD') >
+                moment(new Date(props.estimateAt)).format('DD')
                   ? styles.descLate
                   : styles.descOk,
               ],
@@ -63,7 +64,8 @@ export default (props) => {
           </Text>
           <Text
             style={[
-                moment(new Date(awaitTask)).format("DD") > moment(new Date(props.estimateAt)).format("DD")
+              moment(new Date(awaitTask)).format('DD') >
+              moment(new Date(props.estimateAt)).format('DD')
                 ? styles.dateLate
                 : styles.dateOk,
             ]}>
