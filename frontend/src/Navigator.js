@@ -7,6 +7,7 @@ import Auth from './screens/Auth'
 
 import Menu from './screens/Menu'
 import commonStyles from './commonStyles'
+import AuthOrApp from './screens/AuthOrApp'
 
 const menuConfig = {
     initialRouteName: 'Today',
@@ -61,6 +62,12 @@ const menuRoutes = {
 const menuNavigator = createDrawerNavigator(menuRoutes,menuConfig)
 
 const mainRoutes = {
+
+    AuthOrApp: {
+        name: 'AuthOrApp',
+        screen: AuthOrApp
+    },
+
     Auth: {
         name: 'Auth',
         screen: Auth
@@ -73,7 +80,7 @@ const mainRoutes = {
 }
 
 const mainNavigator = createSwitchNavigator(mainRoutes, {
-    initialRouteName: 'Auth'
+    initialRouteName: 'AuthOrApp'
 })
 
 export default createAppContainer(mainNavigator)
