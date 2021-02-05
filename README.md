@@ -1,7 +1,7 @@
 ## Tasks App
 
 <p align="center">
-  <img alt="Tasks" src="/tasks.gif" width="20%">
+  <img alt="Tasks" src="/tasks.gif" width="30%">
 </p>
 
 Tasks é um projeto de estudos que funciona como uma aplicação de gestão de tarefas. 
