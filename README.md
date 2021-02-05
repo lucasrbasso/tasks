@@ -14,7 +14,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias: **NodeJs, Express, K
 
 ```console
 console@bar:/GitHub/tasks/frontend:~$ npx react-native start
-console@bar:/GitHub/tasks/frontend:~$ npm react-native run-android
+console@bar:/GitHub/tasks/frontend:~$ npx react-native run-android
 console@bar:/GitHub/tasks/backend:~$ npm start
 ```
 
